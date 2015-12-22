@@ -7,6 +7,7 @@
   which is not supported by default by the LocalStorage standard.
 
   Author: Andrew Page <andrew@andrewpage.me>
+  https://andrewpage.me
 */
 
 var ClientStore = function() {
