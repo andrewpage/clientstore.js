@@ -65,19 +65,25 @@ ClientStore.prototype = {
   },
 
   /*
+    Calculate expiration time, factoring in multiplier
+  */
+  calculateExpirationTime: function(expiration) {
+    if(typeof expiration !== 'undefined' && expiration !== null) {
+      var date = new Date();
+      date.setTime(date.getTime() + expiration);
+
+      return date.getTime();
+    }
+
+    return null;
+  },
+
+  /*
     Sets a value using WebStorage
   */
   setWebStorage: function(key, value, expiration) {
     // If we have specified an expiration date, apply it
-    var expiration = null;
-    if(typeof expiration !== 'undefined') {
-      var date = new Date();
-
-      // Set the time to N days in the future.
-      date.setTime(date.getTime() + expiration);
-
-      expiration = date.getTime();
-    }
+    var expiration = calculateExpirationTime(expiration);
 
     // Include the expiration date in the payload
     var payload = {
@@ -96,15 +102,11 @@ ClientStore.prototype = {
     var keyValueString = key + "=" + value;
     var expirationString = "";
 
-    // If we've defined a length of expiration, configure it here
-    if(typeof expiration !== 'undefined') {
-      var date = new Date();
+    var expiration = calculateExpirationTime(expiration);
 
-      // Set the time to N days in the future.
-      date.setTime(date.getTime() + (expiration));
+    if(expiration) {
+      var date = new Date(expiration);
 
-      /* Creates a string defining the expiration date in the format that the browser
-        requires */
       var expirationKV = "expires=" + date.toUTCString();
       expirationString = "; " + expirationKV;
     }
