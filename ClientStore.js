@@ -15,7 +15,7 @@
 var ClientStore = function(options) {
   this.options = options || {};
 
-  if(this.isWebStorageSupported()) {
+  if(this.isWebStorageSupported() && !cookiesShouldBeForced()) {
     // Methods for WebStorage based client-side storage
     this.get = this.getWebStorage;
     this.set = this.setWebStorage;
@@ -40,10 +40,24 @@ ClientStore.prototype = {
   },
 
   /*
+    Should we exclusively use cookies?
+  */
+  cookiesShouldBeForced: function() {
+    return this.options.forceCookies == true;
+  },
+
+  /*
+    Should we exclusively use cookies?
+  */
+  webStorageShouldPersist: function() {
+    return this.options.persistent == true;
+  },
+
+  /*
     Returns the WebStorage mechanism to use (persistent LocalStorage vs. short-lived SessionStorage)
   */
   getWebStorageMechanism: function() {
-    if(this.options.persistent) {
+    if(webStorageShouldPersist()) {
       return localStorage;
     } else {
       return sessionStorage;
