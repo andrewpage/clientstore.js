@@ -7,7 +7,9 @@
   which is not supported by default by the LocalStorage standard.
 
   Author: Andrew Page <andrew@andrewpage.me>
-  https://andrewpage.me
+  Copyright (c) 2015
+
+  MIT License - http://opensource.org/licenses/mit-license.php
 */
 
 var ClientStore = function() {
