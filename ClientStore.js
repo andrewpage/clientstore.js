@@ -15,7 +15,7 @@
 var ClientStore = function(options) {
   this.options = options || {};
 
-  if(this.isWebStorageSupported() && !cookiesShouldBeForced()) {
+  if(!cookiesShouldBeForced() && this.isWebStorageSupported()) {
     // Methods for WebStorage based client-side storage
     this.get = this.getWebStorage;
     this.set = this.setWebStorage;
