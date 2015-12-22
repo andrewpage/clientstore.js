@@ -6,11 +6,7 @@ ClientStore.js is a JavaScript library that provides a browser-support agnostic 
 ```javascript
 // Instantiate a new ClientStore object
 var clientStore = new ClientStore({
-    /*
-        true: WebStorage uses LocalStorage
-        false: WebStorage uses SessionStorage
-    */
-    persistent: true
+    /* Options */
 });
 
 // Use the set() method to set a key and its value
