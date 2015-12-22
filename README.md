@@ -1,8 +1,5 @@
 # ClientStore.js
-Browser agnostic JavaScript interface to client side storage.
-
-## Description
-ClientStore.js is a JavaScript library that provides an agnostic interface to both client-side data storage options, WebStorage and Cookies.
+ClientStore.js is a JavaScript library that provides a browser-support agnostic interface to both client-side data storage options, WebStorage and Cookies.
 
 ## Usage
 
@@ -24,7 +21,7 @@ clientStore.set('key', 'This is ClientStore!');
 clientStore.set('expiringKey', 'This will expire in 5 seconds!', 5000);
 
 // Use the get() method to retrieve a value for a given key
-var value = clientStore.get('key'); // val = This is ClientStore!
+var value = clientStore.get('key'); // value = This is ClientStore!
 
 // Call expire() to check all WebStorage entries, and clean out the ones that have expired. expire() is automatically called on page load.
 clientStore.expire();
