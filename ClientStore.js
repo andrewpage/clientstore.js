@@ -31,8 +31,7 @@ ClientStore.prototype = {
     Determines if we're able to use LocalStorage
   */
   isLocalStorageSupported: function() {
-    // return typeof(Storage) !== 'undefined';
-    return false;
+    return typeof(Storage) !== 'undefined';
   },
 
   /*
