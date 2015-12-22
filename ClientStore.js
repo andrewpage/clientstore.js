@@ -121,7 +121,7 @@ ClientStore.prototype = {
   },
 
   /*
-    Manually expires all LocalStorage data
+    Garbage collection like function that expires all LocalStorage data.
   */
   expireLocal: function() {
     // Current timestamp
@@ -152,3 +152,6 @@ ClientStore.prototype = {
     }
   }
 };
+
+// Executes GC
+new ClientStore().expire();
