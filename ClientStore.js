@@ -1,7 +1,7 @@
 /*
   ClientStore is a standard interface for storing client side data.
   It's standard methods (set, get) are defined at runtime based on the availability
-  of certain client-side storage libraries (localStorage).
+  of certain client-side storage libraries (WebStorage).
 
   ClientStore also includes functionality for expiration of LocalStorage entries,
   which is not supported by default by the LocalStorage standard.
@@ -13,11 +13,11 @@
 */
 
 var ClientStore = function() {
-  if(this.isLocalStorageSupported()) {
+  if(this.isWebStorageSupported()) {
     // Methods for LocalStorage based client-side storage
-    this.get = this.getLocal;
-    this.set = this.setLocal;
-    this.expire = this.expireLocal;
+    this.get = this.getWebStorage;
+    this.set = this.setWebStorage;
+    this.expire = this.expireWebStorage;
   } else {
     // Methods for Cookie based client-side storage
     this.get = this.getCookie;
@@ -31,16 +31,16 @@ var ClientStore = function() {
 ClientStore.prototype = {
 
   /*
-    Determines if we're able to use LocalStorage
+    Determines if we're able to use WebStorage
   */
-  isLocalStorageSupported: function() {
+  isWebStorageSupported: function() {
     return typeof(Storage) !== 'undefined';
   },
 
   /*
     Sets a value using LocalStorage
   */
-  setLocal: function(key, value, expirationDays) {
+  setWebStorage: function(key, value, expirationDays) {
     // If we have specified an expiration date, apply it
     var expiration = null;
     if(typeof expirationDays !== 'undefined') {
@@ -88,7 +88,7 @@ ClientStore.prototype = {
   /*
     Gets a value using LocalStorage
   */
-  getLocal: function(key) {
+  getWebStorage: function(key) {
     // Get stored payload
     var storedData = localStorage.getItem(key);
     var data = null;
@@ -124,9 +124,9 @@ ClientStore.prototype = {
   },
 
   /*
-    Garbage collection like function that expires all LocalStorage data.
+    Garbage collection like function that expires all WebStorage data.
   */
-  expireLocal: function() {
+  expireWebStorage: function() {
     // Current timestamp
     var now = new Date().getTime();
 
