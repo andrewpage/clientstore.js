@@ -53,14 +53,14 @@ ClientStore.prototype = {
   /*
     Sets a value using WebStorage
   */
-  setWebStorage: function(key, value, expirationDays) {
+  setWebStorage: function(key, value, expiration) {
     // If we have specified an expiration date, apply it
     var expiration = null;
-    if(typeof expirationDays !== 'undefined') {
+    if(typeof expiration !== 'undefined') {
       var date = new Date();
 
       // Set the time to N days in the future.
-      date.setTime(date.getTime() + (expirationDays * 24 * 60 * 60 * 1000));
+      date.setTime(date.getTime() + expiration);
 
       expiration = date.getTime();
     }
@@ -78,21 +78,21 @@ ClientStore.prototype = {
   /*
     Sets a value using Cookies
   */
-  setCookie: function(key, value, expirationDays) {
+  setCookie: function(key, value, expiration) {
     var keyValueString = key + "=" + value;
     var expirationString = "";
 
     // If we've defined a length of expiration, configure it here
-    if(typeof expirationDays !== 'undefined') {
+    if(typeof expiration !== 'undefined') {
       var date = new Date();
 
       // Set the time to N days in the future.
-      date.setTime(date.getTime() + (expirationDays * 24 * 60 * 60 * 1000));
+      date.setTime(date.getTime() + (expiration));
 
       /* Creates a string defining the expiration date in the format that the browser
         requires */
-      var expiration = "expires=" + date.toUTCString();
-      expirationString = "; " + expiration;
+      var expirationKV = "expires=" + date.toUTCString();
+      expirationString = "; " + expirationKV;
     }
 
     document.cookie = keyValueString + expirationString;
