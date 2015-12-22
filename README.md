@@ -6,7 +6,9 @@ ClientStore.js is a JavaScript library that provides a browser-support agnostic 
 ```javascript
 // Instantiate a new ClientStore object
 var clientStore = new ClientStore({
-    /* Options */
+    // Pass any options in this parameter
+    persistent: true,
+    expirationMultiplier: 1000
 });
 
 // Use the set() method to set a key and its value
@@ -24,6 +26,17 @@ clientStore.expire();
 ```
 
 The same syntax (`set` and `get`) applies to both WebStorage and Cookie based client-side storage, with or without an expiration time.
+
+### Options
+
+There are a number of configuration options that you can pass to ClientStore. The options parameter is an Object, and each of these options is a key on that Object.
+
+Name | Type | Description
+:---- | :----: | --------------
+persistent | Boolean | Determines whether LocalStorage (`true` value) or SessionStorage (`false` value) will be used if WebStorage is available.
+forceCookies | Boolean | Force usage of Cookie storage and completely bypass any WebStorage compatibility checks.
+expirationMultiplier | Integer | Any value passed to `set()` as the expiration time will be multiplied by this multiplier. e.g. `1000` if you would like to specify expiration time in seconds, `86400000` if you would like to specify expiration time in days.
+
 
 ## Contributing
 See the [contributing](CONTRIBUTING.md) file for information on making contributions to ClientStore.js. Email me at andrew (at) andrewpage (dot) me if you have any questions.
