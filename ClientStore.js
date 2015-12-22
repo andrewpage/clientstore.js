@@ -3,8 +3,8 @@
   It's standard methods (set, get) are defined at runtime based on the availability
   of certain client-side storage libraries (WebStorage).
 
-  ClientStore also includes functionality for expiration of LocalStorage entries,
-  which is not supported by default by the LocalStorage standard.
+  ClientStore also includes functionality for expiration of WebStorage entries,
+  which is not supported by default by the WebStorage standard.
 
   Author: Andrew Page <andrew@andrewpage.me>
   Copyright (c) 2015
@@ -12,9 +12,11 @@
   MIT License - http://opensource.org/licenses/mit-license.php
 */
 
-var ClientStore = function() {
+var ClientStore = function(options) {
+  this.options = options;
+
   if(this.isWebStorageSupported()) {
-    // Methods for LocalStorage based client-side storage
+    // Methods for WebStorage based client-side storage
     this.get = this.getWebStorage;
     this.set = this.setWebStorage;
     this.expire = this.expireWebStorage;
@@ -38,7 +40,18 @@ ClientStore.prototype = {
   },
 
   /*
-    Sets a value using LocalStorage
+    Returns the WebStorage mechanism to use (persistent LocalStorage vs. short-lived SessionStorage)
+  */
+  getWebStorageMechanism: function() {
+    if(this.options.sessionStorage) {
+      return sessionStorage;
+    } else {
+      return localStorage;
+    }
+  },
+
+  /*
+    Sets a value using WebStorage
   */
   setWebStorage: function(key, value, expirationDays) {
     // If we have specified an expiration date, apply it
@@ -59,7 +72,7 @@ ClientStore.prototype = {
     };
 
     // Store the data
-    localStorage.setItem(key, JSON.stringify(payload));
+    getWebStorageMechanism().setItem(key, JSON.stringify(payload));
   },
 
   /*
@@ -86,11 +99,11 @@ ClientStore.prototype = {
   },
 
   /*
-    Gets a value using LocalStorage
+    Gets a value using WebStorage
   */
   getWebStorage: function(key) {
     // Get stored payload
-    var storedData = localStorage.getItem(key);
+    var storedData = getWebStorageMechanism().getItem(key);
     var data = null;
 
     // If the key is valid
@@ -129,11 +142,12 @@ ClientStore.prototype = {
   expireWebStorage: function() {
     // Current timestamp
     var now = new Date().getTime();
+    var wsMechanism = getWebStorageMechanism();
 
-    // Loop over all data stored in LocalStorage
-    for(var key in localStorage) {
-      // Get value for key in LocalStorage (String)
-      var value = localStorage.getItem(key);
+    // Loop over all data stored in WebStorage
+    for(var key in wsMechanism) {
+      // Get value for key in WebStorage (String)
+      var value = wsMechanism.getItem(key);
 
       try {
         // Parse JSON
@@ -148,7 +162,7 @@ ClientStore.prototype = {
           // If we've passed the expiration date...
           if(now > timestamp) {
             // Remove the item
-            localStorage.removeItem(key);
+            wsMechanism.removeItem(key);
           }
         }
       } catch(err) { /* Cannot Expire */ }
