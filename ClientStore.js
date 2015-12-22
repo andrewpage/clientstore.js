@@ -13,7 +13,7 @@
 */
 
 var ClientStore = function(options) {
-  this.options = options;
+  this.options = options || {};
 
   if(this.isWebStorageSupported()) {
     // Methods for WebStorage based client-side storage
@@ -43,10 +43,10 @@ ClientStore.prototype = {
     Returns the WebStorage mechanism to use (persistent LocalStorage vs. short-lived SessionStorage)
   */
   getWebStorageMechanism: function() {
-    if(this.options.sessionStorage) {
-      return sessionStorage;
-    } else {
+    if(this.options.persistent) {
       return localStorage;
+    } else {
+      return sessionStorage;
     }
   },
 
