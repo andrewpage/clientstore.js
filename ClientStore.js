@@ -54,6 +54,13 @@ ClientStore.prototype = {
   },
 
   /*
+    Get expiration multiplier
+  */
+  getExpirationMultiplier: function() {
+    return this.options.expirationMultiplier;
+  },
+
+  /*
     Returns the WebStorage mechanism to use (persistent LocalStorage vs. short-lived SessionStorage)
   */
   getWebStorageMechanism: function() {
@@ -68,14 +75,22 @@ ClientStore.prototype = {
     Calculate expiration time, factoring in multiplier
   */
   calculateExpirationTime: function(expiration) {
+    var expirationDate = null;
+
     if(typeof expiration !== 'undefined' && expiration !== null) {
+      // If we have a multiplier, multiply!
+      var multiplier = getExpirationMultiplier();
+      if(multiplier) {
+        expiration = expiration * multiplier;
+      }
+
+      // Get timestamp from now + expiration
       var date = new Date();
       date.setTime(date.getTime() + expiration);
-
-      return date.getTime();
+      expirationDate = date.getTime();
     }
 
-    return null;
+    return expirationDate;
   },
 
   /*
