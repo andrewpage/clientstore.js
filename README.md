@@ -1,5 +1,5 @@
 # ClientStore.js
-ClientStore.js is a JavaScript library that provides a browser-support agnostic interface to both client-side data storage options, WebStorage and Cookies.
+ClientStore.js is a JavaScript shim/library that provides a browser-support agnostic interface to both client-side data storage options, WebStorage and Cookies.
 
 ## Usage
 
