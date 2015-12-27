@@ -1,0 +1,28 @@
+{
+  "name": "clientstore.js",
+  "main": "clientstore.js",
+  "homepage": "https://github.com/andrewpage/clientstore.js",
+  "authors": [
+    "Andrew Page <andrew@andrewpage.me>"
+  ],
+  "description": "Library for browser-support agnostic client side data storage",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "webstorage",
+    "localstorage",
+    "cookie",
+    "browser",
+    "expiration",
+    "interface"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
