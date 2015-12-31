@@ -1,17 +1,22 @@
-/*
-  ClientStore is a standard interface for storing client side data.
-  It's standard methods (set, get) are defined at runtime based on the availability
-  of certain client-side storage libraries (WebStorage).
-
-  ClientStore also includes functionality for expiration of WebStorage entries,
-  which is not supported by default by the WebStorage standard.
-
-  Author: Andrew Page <andrew@andrewpage.me>
-  Copyright (c) 2015
-
-  MIT License - http://opensource.org/licenses/mit-license.php
+/**
+ * ClientStore is a standard interface for storing client side data.
+ * It's standard methods (set, get) are defined at runtime based on the availability
+ * of certain client-side storage libraries (WebStorage).
+ *
+ * ClientStore also includes functionality for expiration of WebStorage entries,
+ * which is not supported by default by the WebStorage standard.
+ *
+ * Author: Andrew Page <andrew@andrewpage.me>
+ * Copyright (c) 2015
+ *
+ * MIT License - http://opensource.org/licenses/mit-license.php
+ *
+ * @constructor
+ * @param {object} options - Options to instantiate a ClientStore object.
+ * @param {boolean} options.forceCookies - Should cookies always be used as the storage mechanism?
+ * @param {boolean} options.persistent - Should data be restricted to the session or persistent across sessions?
+ * @param {number} options.expirationMultiplier - Multiplier for the expiration time. By default, this is set to 1, which means expiration time is specified in milliseconds.
 */
-
 var ClientStore = function(options) {
   this.options = options || {};
 
