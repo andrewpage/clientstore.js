@@ -62,7 +62,7 @@ ClientStore.prototype = {
     Get expiration multiplier
   */
   getExpirationMultiplier: function() {
-    return this.options.expirationMultiplier;
+    return this.options.expirationMultiplier || 1;
   },
 
   /*
@@ -83,11 +83,7 @@ ClientStore.prototype = {
     var expirationDate = null;
 
     if(typeof expiration !== 'undefined' && expiration !== null) {
-      // If we have a multiplier, multiply!
-      var multiplier = getExpirationMultiplier();
-      if(multiplier) {
-        expiration = expiration * multiplier;
-      }
+      expiration = expiration * this.getExpirationMultiplier();
 
       // Get timestamp from now + expiration
       var date = new Date();
