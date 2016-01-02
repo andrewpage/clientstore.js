@@ -36,6 +36,9 @@ var ClientStore = function(options) {
 };
 
 ClientStore.prototype = {
+  get: function(key) {},
+  set: function(key, value, expiration) {},
+  expire: function() {},
 
   /*
     Determines if we're able to use WebStorage
