@@ -36,8 +36,26 @@ var ClientStore = function(options) {
 };
 
 ClientStore.prototype = {
+  /**
+   * Retreives a value from the ClientStore.
+   *
+   * @param {string} key - Key of stored object to retrieve.
+   * @returns {object}
+   */
   get: function(key) {},
+
+  /**
+   * Stores a value in the ClientStore.
+   *
+   * @param {string} key - Key to store object at.
+   * @param {string} value - Value to store at key.
+   * @param {number} expiration - Time (default in milliseconds) until this record expires.
+   */
   set: function(key, value, expiration) {},
+
+  /**
+   * Remove all expired entries.
+   */
   expire: function() {},
 
   /*
