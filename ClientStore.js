@@ -20,7 +20,7 @@
 var ClientStore = function(options) {
   this.options = options || {};
 
-  if(!cookiesShouldBeForced() && this.isWebStorageSupported()) {
+  if(!this.cookiesShouldBeForced() && this.isWebStorageSupported()) {
     // Methods for WebStorage based client-side storage
     this.get = this.getWebStorage;
     this.set = this.setWebStorage;
@@ -90,7 +90,7 @@ ClientStore.prototype = {
     Returns the WebStorage mechanism to use (persistent LocalStorage vs. short-lived SessionStorage)
   */
   getWebStorageMechanism: function() {
-    if(webStorageShouldPersist()) {
+    if(this.webStorageShouldPersist()) {
       return localStorage;
     } else {
       return sessionStorage;
