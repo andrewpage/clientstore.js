@@ -29,9 +29,6 @@ var ClientStore = function(options) {
     // Methods for Cookie based client-side storage
     this.get = this.getCookie;
     this.set = this.setCookie;
-
-    // No need to manually expire cookies
-    this.expire = function() {};
   }
 };
 
