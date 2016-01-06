@@ -83,15 +83,13 @@ ClientStore.prototype = {
     return this.options.expirationMultiplier || 1;
   },
 
-  /*
-    Returns the WebStorage mechanism to use (persistent LocalStorage vs. short-lived SessionStorage)
-  */
+  /**
+   * Returns the WebStorage mechanism to use (persistent LocalStorage vs. short-lived SessionStorage)
+   *
+   * @returns {object}
+   */
   getWebStorageMechanism: function() {
-    if(this.webStorageShouldPersist()) {
-      return localStorage;
-    } else {
-      return sessionStorage;
-    }
+    return this.webStorageShouldPersist() ? localStorage : sessionStorage;
   },
 
   /*
