@@ -115,7 +115,7 @@ ClientStore.prototype = {
   */
   setWebStorage: function(key, value, expiration) {
     // If we have specified an expiration date, apply it
-    var expiration = calculateExpirationTime(expiration);
+    var expiration = this.calculateExpirationTime(expiration);
 
     // Include the expiration date in the payload
     var payload = {
@@ -124,7 +124,7 @@ ClientStore.prototype = {
     };
 
     // Store the data
-    getWebStorageMechanism().setItem(key, JSON.stringify(payload));
+    this.getWebStorageMechanism().setItem(key, JSON.stringify(payload));
   },
 
   /*
@@ -134,7 +134,7 @@ ClientStore.prototype = {
     var keyValueString = key + "=" + value;
     var expirationString = "";
 
-    var expiration = calculateExpirationTime(expiration);
+    var expiration = this.calculateExpirationTime(expiration);
 
     if(expiration) {
       var date = new Date(expiration);
