@@ -151,7 +151,7 @@ ClientStore.prototype = {
   */
   getWebStorage: function(key) {
     // Get stored payload
-    var storedData = getWebStorageMechanism().getItem(key);
+    var storedData = this.getWebStorageMechanism().getItem(key);
     var data = null;
 
     // If the key is valid
@@ -190,7 +190,7 @@ ClientStore.prototype = {
   expireWebStorage: function() {
     // Current timestamp
     var now = new Date().getTime();
-    var wsMechanism = getWebStorageMechanism();
+    var wsMechanism = this.getWebStorageMechanism();
 
     // Loop over all data stored in WebStorage
     for(var key in wsMechanism) {
