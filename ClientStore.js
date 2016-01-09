@@ -217,6 +217,3 @@ ClientStore.prototype = {
     }
   }
 };
-
-// Executes GC
-new ClientStore().expire();
