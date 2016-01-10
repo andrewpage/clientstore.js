@@ -217,3 +217,5 @@ ClientStore.prototype = {
     }
   }
 };
+
+module.exports = ClientStore;
