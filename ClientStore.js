@@ -55,30 +55,38 @@ ClientStore.prototype = {
    */
   expire: function() {},
 
-  /*
-    Determines if we're able to use WebStorage
-  */
+  /**
+   * Determines if we're able to use WebStorage.
+   *
+   * @returns {boolean}
+   */
   isWebStorageSupported: function() {
     return typeof(Storage) !== 'undefined';
   },
 
-  /*
-    Should we exclusively use cookies?
-  */
+  /**
+   * Should we exclusively use cookies?
+   *
+   * @returns {boolean}
+   */
   cookiesShouldBeForced: function() {
     return this.options.forceCookies == true;
   },
 
-  /*
-    Should we exclusively use cookies?
-  */
+  /**
+   * Should WebStorage persist or be session dependent?
+   *
+   * @returns {boolean}
+   */
   webStorageShouldPersist: function() {
     return this.options.persistent == true;
   },
 
-  /*
-    Get expiration multiplier
-  */
+  /**
+   * Get expiration multiplier
+   *
+   * @returns {number}
+   */
   getExpirationMultiplier: function() {
     return this.options.expirationMultiplier || 1;
   },
