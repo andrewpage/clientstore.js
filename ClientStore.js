@@ -20,15 +20,15 @@
 var ClientStore = function(options) {
   this.options = options || {};
 
-  if(!this.shouldCookiesBeForced() && this.isWebStorageSupported()) {
+  if(!this._shouldCookiesBeForced() && this._isWebStorageSupported()) {
     // Methods for WebStorage based client-side storage
-    this.get = this.getWebStorage;
-    this.set = this.setWebStorage;
-    this.expire = this.expireWebStorage;
+    this.get = this._getWebStorage;
+    this.set = this._setWebStorage;
+    this.expire = this._expireWebStorage;
   } else {
     // Methods for Cookie based client-side storage
-    this.get = this.getCookie;
-    this.set = this.setCookie;
+    this.get = this._getCookie;
+    this.set = this._setCookie;
   }
 };
 
@@ -60,7 +60,7 @@ ClientStore.prototype = {
    *
    * @returns {boolean}
    */
-  isWebStorageSupported: function() {
+  _isWebStorageSupported: function() {
     return typeof(Storage) !== 'undefined';
   },
 
@@ -69,7 +69,7 @@ ClientStore.prototype = {
    *
    * @returns {boolean}
    */
-  shouldCookiesBeForced: function() {
+  _shouldCookiesBeForced: function() {
     return this.options.forceCookies == true;
   },
 
@@ -78,7 +78,7 @@ ClientStore.prototype = {
    *
    * @returns {boolean}
    */
-  webStorageShouldPersist: function() {
+  _webStorageShouldPersist: function() {
     return this.options.persistent == true;
   },
 
@@ -87,7 +87,7 @@ ClientStore.prototype = {
    *
    * @returns {number}
    */
-  getExpirationMultiplier: function() {
+  _getExpirationMultiplier: function() {
     return this.options.expirationMultiplier || 1;
   },
 
@@ -96,8 +96,8 @@ ClientStore.prototype = {
    *
    * @returns {object}
    */
-  getWebStorageMechanism: function() {
-    return this.webStorageShouldPersist() ? localStorage : sessionStorage;
+  _getWebStorageMechanism: function() {
+    return this._webStorageShouldPersist() ? localStorage : sessionStorage;
   },
 
   /**
@@ -106,11 +106,11 @@ ClientStore.prototype = {
    * @param {number} expiration - User-specified number stating the expiration time.
    * @returns {number}
    */
-  calculateExpirationTime: function(expiration) {
+  _calculateExpirationTime: function(expiration) {
     var expirationDate = null;
 
     if(typeof expiration !== 'undefined' && expiration !== null) {
-      expiration = expiration * this.getExpirationMultiplier();
+      expiration = expiration * this._getExpirationMultiplier();
 
       // Get timestamp from now + expiration
       var date = new Date();
@@ -128,9 +128,9 @@ ClientStore.prototype = {
    * @param {string} value - Value to set.
    * @param {number} expiration - Expiration of entry.
    */
-  setWebStorage: function(key, value, expiration) {
+  _setWebStorage: function(key, value, expiration) {
     // If we have specified an expiration date, apply it
-    var expiration = this.calculateExpirationTime(expiration);
+    var expiration = this._calculateExpirationTime(expiration);
 
     // Include the expiration date in the payload
     var payload = {
@@ -139,7 +139,7 @@ ClientStore.prototype = {
     };
 
     // Store the data
-    this.getWebStorageMechanism().setItem(key, JSON.stringify(payload));
+    this._getWebStorageMechanism().setItem(key, JSON.stringify(payload));
   },
 
   /**
@@ -149,11 +149,11 @@ ClientStore.prototype = {
    * @param {string} value - Value to set.
    * @param {number} expiration - Expiration of entry.
    */
-  setCookie: function(key, value, expiration) {
+  _setCookie: function(key, value, expiration) {
     var keyValueString = key + "=" + value;
     var expirationString = "";
 
-    var expiration = this.calculateExpirationTime(expiration);
+    var expiration = this._calculateExpirationTime(expiration);
 
     if(expiration) {
       var date = new Date(expiration);
@@ -171,9 +171,9 @@ ClientStore.prototype = {
    * @param {string} key - Key of value to retrieve.
    * @returns {string}
    */
-  getWebStorage: function(key) {
+  _getWebStorage: function(key) {
     // Get stored payload
-    var storedData = this.getWebStorageMechanism().getItem(key);
+    var storedData = this._getWebStorageMechanism().getItem(key);
     var data = null;
 
     // If the key is valid
@@ -195,7 +195,7 @@ ClientStore.prototype = {
    * @param {string} key - Key of value to retrieve.
    * @returns {string}
    */
-  getCookie: function(key) {
+  _getCookie: function(key) {
     var name = key + "=";
     var ca = document.cookie.split(';');
 
@@ -212,10 +212,10 @@ ClientStore.prototype = {
   /**
    * Garbage collection like function that expires all WebStorage data.
    */
-  expireWebStorage: function() {
+  _expireWebStorage: function() {
     // Current timestamp
     var now = new Date().getTime();
-    var wsMechanism = this.getWebStorageMechanism();
+    var wsMechanism = this._getWebStorageMechanism();
 
     // Loop over all data stored in WebStorage
     for(var key in wsMechanism) {
