@@ -100,9 +100,12 @@ ClientStore.prototype = {
     return this.webStorageShouldPersist() ? localStorage : sessionStorage;
   },
 
-  /*
-    Calculate expiration time, factoring in multiplier
-  */
+  /**
+   * Calculate expiration time, factoring in multiplier.
+   *
+   * @param {number} expiration - User-specified number stating the expiration time.
+   * @returns {number}
+   */
   calculateExpirationTime: function(expiration) {
     var expirationDate = null;
 
@@ -118,9 +121,13 @@ ClientStore.prototype = {
     return expirationDate;
   },
 
-  /*
-    Sets a value using WebStorage
-  */
+  /**
+   * Sets a value using WebStorage.
+   *
+   * @param {string} key - Key of value to set.
+   * @param {string} value - Value to set.
+   * @param {number} expiration - Expiration of entry.
+   */
   setWebStorage: function(key, value, expiration) {
     // If we have specified an expiration date, apply it
     var expiration = this.calculateExpirationTime(expiration);
@@ -135,9 +142,13 @@ ClientStore.prototype = {
     this.getWebStorageMechanism().setItem(key, JSON.stringify(payload));
   },
 
-  /*
-    Sets a value using Cookies
-  */
+  /**
+   * Sets a value using Cookies
+   *
+   * @param {string} key - Key of value to set.
+   * @param {string} value - Value to set.
+   * @param {number} expiration - Expiration of entry.
+   */
   setCookie: function(key, value, expiration) {
     var keyValueString = key + "=" + value;
     var expirationString = "";
@@ -154,9 +165,12 @@ ClientStore.prototype = {
     document.cookie = keyValueString + expirationString;
   },
 
-  /*
-    Gets a value using WebStorage
-  */
+  /**
+   * Retrieves a value using WebStorage
+   *
+   * @param {string} key - Key of value to retrieve.
+   * @returns {string}
+   */
   getWebStorage: function(key) {
     // Get stored payload
     var storedData = this.getWebStorageMechanism().getItem(key);
@@ -175,9 +189,12 @@ ClientStore.prototype = {
     return data;
   },
 
-  /*
-    Gets a value using Cookies
-  */
+  /**
+   * Retrieves a value using Cookies
+   *
+   * @param {string} key - Key of value to retrieve.
+   * @returns {string}
+   */
   getCookie: function(key) {
     var name = key + "=";
     var ca = document.cookie.split(';');
@@ -192,9 +209,9 @@ ClientStore.prototype = {
     return null;
   },
 
-  /*
-    Garbage collection like function that expires all WebStorage data.
-  */
+  /**
+   * Garbage collection like function that expires all WebStorage data.
+   */
   expireWebStorage: function() {
     // Current timestamp
     var now = new Date().getTime();
