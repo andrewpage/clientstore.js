@@ -57,6 +57,7 @@ ClientStore.prototype = {
   /**
    * Determines if we're able to use WebStorage.
    *
+   * @private
    * @returns {boolean}
    */
   _isWebStorageSupported: function() {
@@ -66,6 +67,7 @@ ClientStore.prototype = {
   /**
    * Should we exclusively use cookies?
    *
+   * @private
    * @returns {boolean}
    */
   _shouldCookiesBeForced: function() {
@@ -75,6 +77,7 @@ ClientStore.prototype = {
   /**
    * Should WebStorage persist or be session dependent?
    *
+   * @private
    * @returns {boolean}
    */
   _webStorageShouldPersist: function() {
@@ -84,6 +87,7 @@ ClientStore.prototype = {
   /**
    * Get expiration multiplier
    *
+   * @private
    * @returns {number}
    */
   _getExpirationMultiplier: function() {
@@ -93,6 +97,7 @@ ClientStore.prototype = {
   /**
    * Returns the WebStorage mechanism to use (persistent LocalStorage vs. short-lived SessionStorage)
    *
+   * @private
    * @returns {object}
    */
   _getWebStorageMechanism: function() {
@@ -102,6 +107,7 @@ ClientStore.prototype = {
   /**
    * Calculate expiration time, factoring in multiplier.
    *
+   * @private
    * @param {number} expiration - User-specified number stating the expiration time.
    * @returns {number}
    */
@@ -123,6 +129,7 @@ ClientStore.prototype = {
   /**
    * Sets a value using WebStorage.
    *
+   * @private
    * @param {string} key - Key of value to set.
    * @param {string} value - Value to set.
    * @param {number} expiration - Expiration of entry.
@@ -144,6 +151,7 @@ ClientStore.prototype = {
   /**
    * Sets a value using Cookies
    *
+   * @private
    * @param {string} key - Key of value to set.
    * @param {string} value - Value to set.
    * @param {number} expiration - Expiration of entry.
@@ -167,6 +175,7 @@ ClientStore.prototype = {
   /**
    * Retrieves a value using WebStorage
    *
+   * @private
    * @param {string} key - Key of value to retrieve.
    * @returns {string}
    */
@@ -191,6 +200,7 @@ ClientStore.prototype = {
   /**
    * Retrieves a value using Cookies
    *
+   * @private
    * @param {string} key - Key of value to retrieve.
    * @returns {string}
    */
@@ -210,6 +220,8 @@ ClientStore.prototype = {
 
   /**
    * Garbage collection like function that expires all WebStorage data.
+   *
+   * @private
    */
   _expireWebStorage: function() {
     // Current timestamp
