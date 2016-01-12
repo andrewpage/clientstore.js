@@ -20,7 +20,7 @@
 var ClientStore = function(options) {
   this.options = options || {};
 
-  if(!this.cookiesShouldBeForced() && this.isWebStorageSupported()) {
+  if(!this.shouldCookiesBeForced() && this.isWebStorageSupported()) {
     // Methods for WebStorage based client-side storage
     this.get = this.getWebStorage;
     this.set = this.setWebStorage;
@@ -69,7 +69,7 @@ ClientStore.prototype = {
    *
    * @returns {boolean}
    */
-  cookiesShouldBeForced: function() {
+  shouldCookiesBeForced: function() {
     return this.options.forceCookies == true;
   },
 
