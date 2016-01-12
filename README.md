@@ -37,6 +37,8 @@ persistent | Boolean | Determines whether LocalStorage (`true` value) or Session
 forceCookies | Boolean | Force usage of Cookie storage and completely bypass any WebStorage compatibility checks.
 expirationMultiplier | Integer | Any value passed to `set()` as the expiration time will be multiplied by this multiplier. e.g. `1000` if you would like to specify expiration time in seconds, `86400000` if you would like to specify expiration time in days.
 
+## Documentation
+You can read full documentation on the ClientStore.js library [here](http://andrewpage.github.io/clientstore.js/).
 
 ## Contributing
 See the [contributing](CONTRIBUTING.md) file for information on making contributions to ClientStore.js. Email me at andrew (at) andrewpage (dot) me if you have any questions.
