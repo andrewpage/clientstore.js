@@ -6,10 +6,9 @@
  * ClientStore also includes functionality for expiration of WebStorage entries,
  * which is not supported by default by the WebStorage standard.
  *
- * Author: Andrew Page <andrew@andrewpage.me>
- * Copyright (c) 2015
- *
- * MIT License - http://opensource.org/licenses/mit-license.php
+ * @author Andrew Page <andrew@andrewpage.me>
+ * @copyright Andrew Page (c) 2015
+ * @license MIT
  *
  * @constructor
  * @param {object} options - Options to instantiate a ClientStore object.
